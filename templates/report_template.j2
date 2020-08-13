@@ -7,6 +7,11 @@ Updates to be applied to bring device into compliance:
 {{ command }}
 {% endfor %}
 
+Users to be added or removed:
+{% for command in user_result.command%}}
+{{ command }}
+{% endfor %}}
+
 --------------------------------------------------------------------
 
 {% endfor %}
