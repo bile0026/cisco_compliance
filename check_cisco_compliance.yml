@@ -32,7 +32,7 @@
   - name: Email non-compliance
     mail:
       from: "cliffs_awx@clevelandcliffs.com"
-      to: zachary.biles@clevelandcliffs.com
+      to: "{{ email_address }}"
       subject: Compliance Report for {{ inventory_hostname }}
       subtype: html
       attach: /tmp/Cisco_Compliance_Report.txt
