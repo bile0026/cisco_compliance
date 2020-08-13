@@ -34,8 +34,6 @@
       gather_subset: min
     register: ios_facts
 
-  - debug: var=ios_facts
-
   - name: Check Compliance Options
     cisco.ios.ios_config:
       lines:
