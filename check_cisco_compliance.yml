@@ -9,7 +9,7 @@
     - cisco.ios
 
   tasks:
-  - name: Check Service Settings
+  - name: Check Compliance Options
     cisco.ios.ios_config:
       lines:
         - service password-encryption
