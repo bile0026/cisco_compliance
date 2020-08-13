@@ -1,0 +1,44 @@
+---
+- name: Set default cisco configuration items
+  hosts: all
+  gather_facts: False
+  connection: network_cli
+  vars:
+    ansible_network_os: ios
+  collections:
+    - cisco.ios
+
+  tasks:
+  - name: Check Service Settings
+    cisco.ios.ios_config:
+      lines:
+        - service password-encryption
+        - ntp source Vlan 4000
+        - ntp server 172.16.1.31
+        - no ip forward-protocol nd
+        - no ip http server
+        - no ip http secure-server
+        - ip ssh version 2
+        - ip scp server enable
+        - ip tacacs source-interface Vlan4000
+    register: config_results
+
+  - name: Generate report file
+    template:
+      src: templates/report_template.j2
+      dest: /tmp/Cisco_Compliance_Report.txt
+    delegate_to: localhost
+
+  - name: Email non-compliance
+    mail:
+      from: "cliffs_awx@clevelandcliffs.com"
+      to: zachary.biles@clevelandcliffs.com
+      subject: Compliance Report for {{ inventory_hostname }}
+      subtype: html
+      attach: /tmp/Cisco_Compliance_Report.txt
+      host: mailhub.cliffsnet.com
+      body:
+    when: config_results.changed
+    delegate_to: localhost
+    run_once: True
+    check_mode: no

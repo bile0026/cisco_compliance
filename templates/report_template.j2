@@ -1,0 +1,12 @@
+# templates/mail_body.j2
+{% for host in play_hosts %}
+{{ host }} report:
+
+Updates to be applied to bring device into compliance:
+{% for command in config_results.updates %}
+{{ command }}
+{% endfor %}
+
+--------------------------------------------------------------------
+
+{% endfor %}
