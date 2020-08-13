@@ -19,7 +19,7 @@
       when: ping_result.rc == 0
       check_mode: False
 
-- name: Set default cisco configuration items
+- name: Check and set cisco compliance configuration items
   hosts: reachable
   gather_facts: False
   connection: network_cli
