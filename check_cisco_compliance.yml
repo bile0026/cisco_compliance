@@ -28,12 +28,14 @@
       src: templates/report_template.j2
       dest: /tmp/Cisco_Compliance_Report.txt
     delegate_to: localhost
+    run_once: True
+    check_mode: False
 
   - name: Email non-compliance
     mail:
       from: "cliffs_awx@clevelandcliffs.com"
-      to: "{{ email_address }}"
-      subject: Compliance Report for {{ inventory_hostname }}
+      to: zachary.biles@clevelandcliffs.com
+      subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
       subtype: html
       attach: /tmp/Cisco_Compliance_Report.txt
       host: mailhub.cliffsnet.com
@@ -41,4 +43,12 @@
     when: config_results.changed
     delegate_to: localhost
     run_once: True
-    check_mode: no
+    check_mode: False
+
+  - name: Cleanup reports
+    file:
+      path: /tmp/Cisco_Compliance_Report.txt
+      state: absent
+    delegate_to: localhost
+    run_once: True
+    check_mode: False
