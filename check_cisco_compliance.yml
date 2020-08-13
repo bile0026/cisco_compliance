@@ -33,12 +33,12 @@
 
   - name: Email non-compliance
     mail:
-      from: "cliffs_awx@clevelandcliffs.com"
-      to: zachary.biles@clevelandcliffs.com
+      from: "{{ from_email }}"
+      to: "{{ email_address }}"
       subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
       subtype: html
       attach: /tmp/Cisco_Compliance_Report.txt
-      host: mailhub.cliffsnet.com
+      host: "{{ smtp_server }}"
       body:
     when: config_results.changed
     delegate_to: localhost
