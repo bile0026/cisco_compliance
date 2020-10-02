@@ -41,7 +41,39 @@
         diff_against: intended
         intended_config: templates/3560cx_compliance_template.j2
         # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
-  # - name: Save configuration when changes are made
-  #   cisco.ios.ios_command:
-  #     lines: "write memory"
-  #   when: not ansible_check_mode and config_results.changed
+      register: config_results
+
+    # - name: Save configuration when changes are made
+    #   cisco.ios.ios_command:
+    #     lines: "write memory"
+    #   when: not ansible_check_mode and config_results.changed
+
+    - name: Generate report file
+      template:
+        src: templates/report_template.j2
+        dest: /tmp/Cisco_Compliance_Report.txt
+      delegate_to: localhost
+      run_once: True
+      check_mode: False
+
+    - name: Email non-compliance
+      mail:
+        from: "{{ from_email }}"
+        to: "{{ email_address }}"
+        subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
+        subtype: html
+        attach: /tmp/Cisco_Compliance_Report.txt
+        host: "{{ smtp_server }}"
+        body:
+      when: config_results.changed
+      delegate_to: localhost
+      run_once: True
+      check_mode: False
+
+    - name: Cleanup reports
+      file:
+        path: /tmp/Cisco_Compliance_Report.txt
+        state: absent
+      delegate_to: localhost
+      run_once: True
+      check_mode: False
