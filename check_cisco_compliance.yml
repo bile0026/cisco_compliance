@@ -29,6 +29,8 @@
     - cisco.ios
 
   tasks:
+    - include_vars: vars/vars.yml
+
     - name: Gather device information
       cisco.ios.ios_facts:
 
@@ -37,8 +39,6 @@
         backup: yes
         src: templates/3560cx_compliance_template.j2
         # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
-      include_vars:
-        - vars/vars.yml
   # - name: Save configuration when changes are made
   #   cisco.ios.ios_command:
   #     lines: "write memory"
