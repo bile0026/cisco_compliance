@@ -1,0 +1,147 @@
+# set services
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec localtime show-timezone year
+service timestamps log datetime msec localtime show-timezone year
+service password-encryption
+no service call-home
+no service dhcp
+
+# enable secret 5 {{ enable_pass }}
+# username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
+
+#set timezone
+clock timezone EST -5 0
+clock summer-time EDT recurring
+
+system mtu routing 1500
+
+no ip domain lookup
+ip domain name {{ domain_name }}
+
+# vtp off
+vtp mode off
+vtp domain {{ inventory_host }}
+
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext
+  hidekeys
+
+errdisable recovery cause udld
+errdisable recovery cause security-violation
+errdisable recovery cause channel-misconfig
+errdisable recovery cause link-flap
+errdisable recovery cause sfp-config-mismatch
+errdisable recovery cause gbic-invalid
+errdisable recovery cause psecure-violation
+errdisable recovery cause port-mode-failure
+errdisable recovery cause storm-control
+errdisable recovery cause inline-power
+errdisable recovery interval 600
+
+no ip forward-protocol nd
+# ip tacacs source-interface {{ management_interface }}
+
+# service settings
+no ip http server
+no ip http secure-server
+ip ssh version 2
+ip scp server enable
+
+ip access-list extended PROTECT_SSH
+  10 permit tcp 10.0.0.0 0.255.255.255 any eq 22
+  100 deny ip any any log
+
+ip access-list standard PROTECT_SNMP
+  {% for acl in protect_snmp_var %}}
+    acl
+  {% endfor %}}
+
+logging facility local6
+logging source-interface {{ management_interface }}
+logging host {{ syslog_server }}
+{% if inventory_host.startswith('2PS') %}
+logging host 10.206.180.240
+{% endif %}
+{% if inventory_host.startswith('BAB') %}
+logging host 10.101.0.240
+{% endif %}
+{% if inventory_host.startswith('CAN') %}
+logging host 10.204.180.249
+{% endif %}
+{% if inventory_host.startswith('CLE') %}
+logging host 10.206.180.240
+{% endif %}
+{% if inventory_host.startswith('COT') %}
+logging host 10.41.0.240
+{% endif %}
+{% if inventory_host.startswith('CTG') %}
+logging host 10.41.0.240
+{% endif %}
+{% if inventory_host.startswith('EGL') %}
+logging host 10.41.0.240
+{% endif %}
+{% if inventory_host.startswith('EMP') %}
+logging host 10.41.0.240
+{% endif %}
+{% if inventory_host.startswith('ERI') %}
+logging host 10.204.180.249
+{% endif %}
+{% if inventory_host.startswith('EVE') %}
+logging host 10.50.0.240
+{% endif %}
+{% if inventory_host.startswith('FRB') %}
+logging host 10.50.0.240
+{% endif %}
+{% if inventory_host.startswith('ORD') %}
+logging host 10.41.0.240
+{% endif %}
+{% if inventory_host.startswith('SIL') %}
+logging host 10.101.0.240
+{% endif %}
+{% if inventory_host.startswith('TIL') %}
+logging host 10.41.0.240
+{% endif %}
+{% if inventory_host.startswith('TOL') %}
+logging host 10.206.180.240
+{% endif %}
+{% if inventory_host.startswith('WSY') %}
+logging host 10.41.0.240
+{% endif %}
+
+
+
+# snmp config
+snmp-server community {{ snmp_ro }} RO PROTECT_SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps tty
+snmp-server enable traps config
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp mib flash cache
+
+# ntp source {{ management_interface }}
+ntp server {{ ntp_address }}
+
+line con 0
+ exec-timeout 15 0
+ logging synchronous
+
+line vty 0 4
+ access-class PROTECT_SSH in
+ exec-timeout 15 0
+ logging synchronous
+ transport input ssh
+
+line vty 5 15
+ access-class PROTECT_SSH in
+ exec-timeout 15 0
+ logging synchronous
+ transport input ssh

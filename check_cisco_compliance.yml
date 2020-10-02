@@ -29,98 +29,15 @@
     - cisco.ios
 
   tasks:
-  - name: Gather device information
-    ios_facts:
-      gather_subset: min
-    register: ios_facts
+    - name: Gather device information
+      cisco.ios.ios_facts:
 
-  - name: Check Compliance Options
-    cisco.ios.ios_config:
-      lines:
-        - service password-encryption
-        - no service dhcp
-        - enable secret 5 {{ enable_pass }}
-        - username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
-        - clock timezone EST -5 0
-        - clock summer-time EDT recurring
-        - system mtu routing 1500
-        - no ip domain lookup
-        - vtp mode off
-        - spanning-tree mode rapid-pvst
-        - spanning-tree extend system-id
-        - errdisable recovery cause udld
-        - errdisable recovery cause security-violation
-        - errdisable recovery cause channel-misconfig
-        - errdisable recovery cause link-flap
-        - errdisable recovery cause sfp-config-mismatch
-        - errdisable recovery cause gbic-invalid
-        - errdisable recovery cause psecure-violation
-        - errdisable recovery cause port-mode-failure
-        - errdisable recovery cause storm-control
-        - errdisable recovery cause inline-power
-        - errdisable recovery interval 600
-        - no ip forward-protocol nd
-        #- ip tacacs source-interface Vlan4000
-        - no ip http server
-        - no ip http secure-server
-        - ip ssh version 2
-        - ip scp server enable
-        - snmp-server community {{ snmp_ro }} RO PROTECT_SNMP
-        - snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
-        - snmp-server enable traps transceiver all
-        - snmp-server enable traps entity
-        - snmp-server enable traps cpu threshold
-        - snmp-server enable traps tty
-        - snmp-server enable traps config
-        - snmp-server enable traps envmon fan shutdown supply temperature status
-        - snmp mib flash cache
-        #- ntp source Vlan 4000
-        - ntp server 172.16.1.31
-    register: config_results
-
-  - name: Cleanup local users
-    ios_user:
-      aggregate:
-        - name: "{{ local_user }}"
-      configured_password: "{{ local_pass }}"
-      password_type: secret
-      update_password: on_create
-      privilege: 15
-      purge: yes
-    register: user_result
-
-  - name: Generate report file
-    template:
-      src: templates/report_template.j2
-      dest: /tmp/Cisco_Compliance_Report.txt
-    delegate_to: localhost
-    run_once: True
-    check_mode: False
-
-  - name: Email non-compliance
-    mail:
-      from: "{{ from_email }}"
-      to: "{{ email_address }}"
-      subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
-      subtype: html
-      attach: /tmp/Cisco_Compliance_Report.txt
-      host: "{{ smtp_server }}"
-      body:
-    when: config_results.changed
-    delegate_to: localhost
-    run_once: True
-    check_mode: False
-
-  - name: Cleanup reports
-    file:
-      path: /tmp/Cisco_Compliance_Report.txt
-      state: absent
-    delegate_to: localhost
-    run_once: True
-    check_mode: False
-
-
-  - name: Save configuration when changes are made
-    cisco.ios.ios_command:
-      lines: "write memory"
-    when: not ansible_check_mode and config_results.changed
+    - name: Generate template when 3560 switch
+      cisco.ios.ios_config:
+        backup: yes
+        src: templates/3560cx_compliance_template.j2
+      #when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
+  # - name: Save configuration when changes are made
+  #   cisco.ios.ios_command:
+  #     lines: "write memory"
+  #   when: not ansible_check_mode and config_results.changed
