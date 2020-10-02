@@ -37,7 +37,7 @@
     - name: Generate 3560 Config
       template:
         src: templates/3560cx_compliance_template.j2
-        dst: tmp/{{ ansible_host }}.cfg
+        dest: tmp/{{ ansible_host }}.cfg
 
       # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
     - name: Apply Config
