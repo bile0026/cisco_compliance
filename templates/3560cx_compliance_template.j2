@@ -21,7 +21,7 @@ ip domain name {{ domain_name }}
 
 # vtp off
 vtp mode off
-vtp domain {{ inventory_host }}
+vtp domain {{ ansible_net_hostname }}
 
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
