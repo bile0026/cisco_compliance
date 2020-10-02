@@ -2,7 +2,7 @@
 {% for host in play_hosts %}
 {{ host }} report:
 Code version:
-{{ ansible_facts.ansible_net_version }}
+{{ ansible_net_version }}
 
 Updates to be applied to bring device into compliance:
 {% for command in config_results.updates %}
