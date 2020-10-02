@@ -34,7 +34,7 @@
     - name: Gather device information
       cisco.ios.ios_facts:
 
-    - name: Generate template when 3560 switch
+    - name: Apply 3560 Template
       cisco.ios.ios_config:
         backup: yes
         src: templates/3560cx_compliance_template.j2
