@@ -119,7 +119,7 @@ logging host 10.41.0.240
 # snmp config
 snmp-server community {{ snmp_ro }} RO PROTECT_SNMP
 snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
-snmp-server enable traps transceiver all
+# snmp-server enable traps transceiver all
 snmp-server enable traps entity
 snmp-server enable traps cpu threshold
 snmp-server enable traps tty
