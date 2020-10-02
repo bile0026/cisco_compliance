@@ -34,14 +34,19 @@
     - name: Gather device information
       cisco.ios.ios_facts:
 
-    - name: Apply 3560 Template
+    - name: Generate 3560 Config
+      template:
+        src: templates/3560cx_compliance_template.j2
+        dst: tmp/{{ ansible_host }}.cfg
+
+      # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
+    - name: Apply Config
       cisco.ios.ios_config:
         backup: yes
-        src: templates/3560cx_compliance_template.j2
+        src: tmp/{{ ansible_host }}.cfg
         diff_against: intended
-        intended_config: templates/3560cx_compliance_template.j2
+        intended_config: tmp/{{ ansible_host }}.cfg
       # save_when: modified
-      # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
       register: config_results
 
     # - name: Save configuration when changes are made
