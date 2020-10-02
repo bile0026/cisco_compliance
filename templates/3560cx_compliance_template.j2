@@ -65,52 +65,52 @@ ip access-list standard PROTECT_SNMP
 logging facility local6
 logging source-interface {{ management_interface }}
 logging host {{ syslog_server }}
-{% if inventory_host.startswith('2PS') %}
+{% if ansible_net_hostname.startswith('2PS') %}
 logging host 10.206.180.240
 {% endif %}
-{% if inventory_host.startswith('BAB') %}
+{% if ansible_net_hostname.startswith('BAB') %}
 logging host 10.101.0.240
 {% endif %}
-{% if inventory_host.startswith('CAN') %}
+{% if ansible_net_hostname.startswith('CAN') %}
 logging host 10.204.180.249
 {% endif %}
-{% if inventory_host.startswith('CLE') %}
+{% if ansible_net_hostname.startswith('CLE') %}
 logging host 10.206.180.240
 {% endif %}
-{% if inventory_host.startswith('COT') %}
+{% if ansible_net_hostname.startswith('COT') %}
 logging host 10.41.0.240
 {% endif %}
-{% if inventory_host.startswith('CTG') %}
+{% if ansible_net_hostname.startswith('CTG') %}
 logging host 10.41.0.240
 {% endif %}
-{% if inventory_host.startswith('EGL') %}
+{% if ansible_net_hostname.startswith('EGL') %}
 logging host 10.41.0.240
 {% endif %}
-{% if inventory_host.startswith('EMP') %}
+{% if ansible_net_hostname.startswith('EMP') %}
 logging host 10.41.0.240
 {% endif %}
-{% if inventory_host.startswith('ERI') %}
+{% if ansible_net_hostname.startswith('ERI') %}
 logging host 10.204.180.249
 {% endif %}
-{% if inventory_host.startswith('EVE') %}
+{% if ansible_net_hostname.startswith('EVE') %}
 logging host 10.50.0.240
 {% endif %}
-{% if inventory_host.startswith('FRB') %}
+{% if ansible_net_hostname.startswith('FRB') %}
 logging host 10.50.0.240
 {% endif %}
-{% if inventory_host.startswith('ORD') %}
+{% if ansible_net_hostname.startswith('ORD') %}
 logging host 10.41.0.240
 {% endif %}
-{% if inventory_host.startswith('SIL') %}
+{% if ansible_net_hostname.startswith('SIL') %}
 logging host 10.101.0.240
 {% endif %}
-{% if inventory_host.startswith('TIL') %}
+{% if ansible_net_hostname.startswith('TIL') %}
 logging host 10.41.0.240
 {% endif %}
-{% if inventory_host.startswith('TOL') %}
+{% if ansible_net_hostname.startswith('TOL') %}
 logging host 10.206.180.240
 {% endif %}
-{% if inventory_host.startswith('WSY') %}
+{% if ansible_net_hostname.startswith('WSY') %}
 logging host 10.41.0.240
 {% endif %}
 
