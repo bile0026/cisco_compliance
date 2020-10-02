@@ -40,7 +40,8 @@
         src: templates/3560cx_compliance_template.j2
         diff_against: intended
         intended_config: templates/3560cx_compliance_template.j2
-        # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
+      # save_when: modified
+      # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
       register: config_results
 
     # - name: Save configuration when changes are made
