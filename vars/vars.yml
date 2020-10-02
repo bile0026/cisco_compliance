@@ -1,0 +1,15 @@
+management_interface: g0/0
+ntp_address: 192.168.0.1
+logging_address:
+  - 192.168.0.1
+  - 192.168.1.2
+snmp_ro: public
+enable_pass: cisco
+local_user: cisco
+local_pass: cisco
+domain_name: test.com
+syslog_server: 192.168.0.1
+protect_snmp_var:
+  - 10 permit 192.168.0.1
+  - 20 permit 192.168.0.2
+  - 150 deny any log
