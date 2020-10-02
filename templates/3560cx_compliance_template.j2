@@ -59,7 +59,7 @@ ip access-list extended PROTECT_SSH
 
 ip access-list standard PROTECT_SNMP
   {% for acl in protect_snmp_var %}}
-    acl
+    {{ acl }}
   {% endfor %}}
 
 logging facility local6
