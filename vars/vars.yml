@@ -8,7 +8,9 @@ enable_pass: cisco
 local_user: cisco
 local_pass: cisco
 domain_name: test.com
-syslog_server: 192.168.0.1
+syslog_server:
+  - 192.168.0.1
+  - 192.168.1.1
 protect_snmp_var:
   - permit 192.168.0.1
   - permit 192.168.0.2

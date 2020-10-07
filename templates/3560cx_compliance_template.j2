@@ -64,7 +64,9 @@ ip access-list standard PROTECT_SNMP
 
 logging facility local6
 logging source-interface {{ management_interface }}
-logging host {{ syslog_server }}
+{% for server in syslog_server %}
+logging host {{ server }}
+{% endfor %}}
 {% if ansible_net_hostname.startswith('2PS') %}
 logging host 10.206.180.240
 {% endif %}
