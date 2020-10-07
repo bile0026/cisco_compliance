@@ -10,7 +10,7 @@ from_email:
 smtp_server:
 ```
 
-vars used in jinja2 templates:
+vars used in jinja2 templates (see examples in vars/vars.yml):
 
 ```
 management_interface:
