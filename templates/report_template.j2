@@ -1,4 +1,3 @@
-#{% for host in play_hosts %}
 {{ host }} report:
     Code version: {{ ansible_net_version }}
     Switch Model: {{ ansible_net_model }}
@@ -11,5 +10,3 @@ Updates to be applied to bring device into compliance:
 
 
 --------------------------------------------------------------------
-
-#{% endfor %}
