@@ -33,13 +33,19 @@
 
     - name: Gather device information
       cisco.ios.ios_facts:
+      check_mode: False
 
     - name: Generate 3560 Config
       template:
         src: templates/3560cx_compliance_template.j2
         dest: /tmp/{{ ansible_host }}.cfg
 
+
       # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
+
+      # add config templates for 9300 switches
+
+      # add config templates for 9500 switches
     - name: Apply Config
       cisco.ios.ios_config:
         backup: yes
