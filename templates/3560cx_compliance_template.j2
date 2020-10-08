@@ -160,7 +160,7 @@ snmp mib flash cache
 
 # TACACS config
 {% for server in tacacs_server_name %}
- tacacs server {{ server.name }}
+tacacs server {{ server.name }}
  address ipv4 {{ server.ip }}
  key 7 {{ tacacs_key }}
  timeout 2
