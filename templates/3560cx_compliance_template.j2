@@ -19,7 +19,7 @@ clock summer-time EDT recurring
 {% if ansible_net_model == 'WS-C3560CX-12PC-S' %}
 no ip domain-lookup
 ip domain-name {{ domain_name }}
-{% if ansible_net_model == 'IOSv' %}
+{% elif ansible_net_model == 'IOSv' %}
 no ip domain-lookup
 ip domain-name {{ domain_name }}
 {% else %}
