@@ -13,18 +13,18 @@ smtp_server:
 vars used in jinja2 templates (see examples in vars/vars.yml):
 
 ```
-management_interface:
-ntp_address:
-logging_address:
-    - dest 1
-    - dest 2
-snmp_ro:
-enable_pass:
-local_user:
-local_pass:
-domain_name:
+management_interface: GigabitEthernet0/0
+ntp_address: 192.168.0.1
+snmp_ro: public
+enable_pass: cisco
+local_user: cisco
+local_pass: cisco
+domain_name: test.com
 syslog_server:
+  - 192.168.0.1
+  - 192.168.1.1
 protect_snmp_var:
-    - acl 1
-    - acl 2
+  - permit 192.168.0.1
+  - permit 192.168.0.2
+  - deny   any log
 ```
