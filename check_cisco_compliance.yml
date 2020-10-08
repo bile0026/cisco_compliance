@@ -34,6 +34,8 @@
     - name: Gather device information
       cisco.ios.ios_facts:
 
+    - debug: var=ansible_net_model
+
     - name: Generate 3560 Config
       template:
         src: templates/3560cx_compliance_template.j2
