@@ -84,7 +84,9 @@
         to: "{{ email_addresses }}"
         subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
         subtype: html
-        attach: /tmp/Cisco_Compliance_Report.txt
+        attach:
+          - /tmp/Cisco_Compliance_Report.txt
+          - /tmp/{{ ansible_host }}.cfg
         host: "{{ smtp_server }}"
         body:
       when:
