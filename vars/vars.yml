@@ -18,9 +18,6 @@ tacacs_server_name:
     ip: 192.168.0.1
   - name: server 2
     ip: 192.168.1.1
-tacacs_server_ip:
-  - 192.168.0.1
-  - 192.168.1.1
 banner: |
   UNAUTHORIZED ACCESS TO THIS DEVICE IS PROHIBITED
   ================================================
