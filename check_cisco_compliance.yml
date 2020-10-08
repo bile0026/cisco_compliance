@@ -37,7 +37,7 @@
     - name: Generate 3560 Config
       template:
         src: templates/3560cx_compliance_template.j2
-        dest: /tmp/{{ ansible_host }}.cfg
+        dest: "{{ ansible_host }}.cfg"
 
       # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
 
@@ -47,9 +47,9 @@
     - name: Apply Configuration template
       cisco.ios.ios_config:
         backup: yes
-        src: /tmp/{{ ansible_host }}.cfg
+        src: "{{ ansible_host }}.cfg"
         diff_against: intended
-        intended_config: /tmp/{{ ansible_host }}.cfg
+        intended_config: "{{ ansible_host }}.cfg"
       # save_when: modified
       register: config_results
 
