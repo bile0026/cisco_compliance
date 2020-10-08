@@ -4,11 +4,25 @@ service tcp-keepalives-out
 service timestamps debug datetime msec localtime show-timezone year
 service timestamps log datetime msec localtime show-timezone year
 service password-encryption
-# no service call-home
+no service call-home
 no service dhcp
 
-# enable secret 5 {{ enable_pass }}
-# username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
+logging buffered 512000
+
+enable secret 5 {{ enable_pass }}
+username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
+
+# aaa commands
+aaa new-model
+aaa authentication login default group tacacs+ local
+aaa authorization config-commands
+aaa authorization exec default group tacacs+ local if-authenticated
+aaa authorization commands 1 default group tacacs+ if-authenticated
+aaa authorization commands 15 default group tacacs+ local if-authenticated
+aaa accounting update periodic 5
+aaa accounting commands 1 default start-stop group tacacs+
+aaa accounting commands 15 default start-stop group tacacs+
+aaa session-id common
 
 #set timezone
 clock timezone EST -5 0
@@ -35,6 +49,8 @@ vtp domain {{ ansible_net_hostname }}
 
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
+
+udld aggressive
 
 archive
  log config
@@ -140,6 +156,21 @@ snmp-server enable traps config
 snmp-server enable traps envmon fan shutdown supply temperature status
 snmp mib flash cache
 {% endif %}
+
+# TACACS config
+tacacs server {{ tacacs_servers.server1.name }}
+ address ipv4 {{ tacacs_servers.server1.ip }}
+ key 7 {{ tacacs_key }}
+ timeout 2
+
+tacacs server {{ tacacs_servers.server2.name }}
+ address ipv4 {{ tacacs_servers.server2.ip }}
+ key 7 {{ tacacs_key }}
+ timeout 2
+
+banner login ^
+{{ banner }}
+^
 
 # ntp source {{ management_interface }}
 ntp server {{ ntp_address }}
