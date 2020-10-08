@@ -60,6 +60,7 @@
 
     - name: Generate Report file
       blockinfile:
+        create: True
         dest: /tmp/Cisco_Compliance_Report.txt
         block: "{{ lookup('template', 'templates/report_template.j2') }}"
         marker: "; {mark} ANSIBLE MANAGED BLOCK FOR {{ ansible_net_hostname }}"
