@@ -81,7 +81,7 @@
     - name: Email non-compliance
       mail:
         from: "{{ from_email }}"
-        to: "{{ email_address }}"
+        to: "{{ email_addresses }}"
         subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
         subtype: html
         attach: /tmp/Cisco_Compliance_Report.txt
