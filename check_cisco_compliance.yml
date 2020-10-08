@@ -40,10 +40,7 @@
         dest: /tmp/{{ ansible_host }}.cfg
       check_mode: False
 
-      # when: ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S'
-
       # add config templates for 9300 switches
-
       # add config templates for 9500 switches
     - name: Apply Configuration template
       cisco.ios.ios_config:
@@ -53,11 +50,6 @@
         intended_config: /tmp/{{ ansible_host }}.cfg
       # save_when: modified
       register: config_results
-
-    # - name: Save configuration when changes are made
-    #   cisco.ios.ios_command:
-    #     lines: "write memory"
-    #   when: not ansible_check_mode and config_results.changed
 
     - name: Generate Report file
       blockinfile:
@@ -69,14 +61,6 @@
         marker_end: "---------------------------------------------------------------"
       delegate_to: localhost
       check_mode: False
-
-    # - name: Generate report file
-    #   template:
-    #     src: templates/report_template.j2
-    #     dest: /tmp/Cisco_Compliance_Report.txt
-    #   delegate_to: localhost
-    #   # run_once: True
-    #   check_mode: False
 
     - name: Email non-compliance
       mail:
