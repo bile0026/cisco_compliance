@@ -80,9 +80,9 @@ ip ssh version 2
 ip scp server enable
 
 ip access-list standard PROTECT_SNMP
-{% for acl in protect_snmp_var %}}
+{% for acl in protect_snmp_var %}
  {{ acl }}
-{% endfor %}}
+{% endfor %}
 
 ip access-list extended PROTECT_SSH
  permit tcp 10.0.0.0 0.255.255.255 any eq 22
@@ -93,7 +93,7 @@ logging origin-id string {{ ansible_net_hostname }}
 logging source-interface {{ management_interface }}
 {% for server in syslog_server %}
 logging host {{ server }}
-{% endfor %}}
+{% endfor %}
 {% if ansible_net_hostname.startswith('2PS') %}
 logging host 10.206.180.240
 {% endif %}
