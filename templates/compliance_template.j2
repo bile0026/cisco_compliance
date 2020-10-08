@@ -1,11 +1,13 @@
 {% if ansible_net_model == 'WS-C3560CX-12PC-S' or ansible_net_model == 'WS-C3560CG-8PC-S' or ansible_net_model == 'IOSv' %}
 {% include '3560cx_compliance_template.j2' %}
-{% endif %}
+
 {% elif ansible_net_model == 'C9300-24U' or ansible_net_model == 'C9300-48U' %}
 {% include '9300_compliance_template.j2' %}
-{% endif %}
+
 {% elif ansible_net_model == 'C9500-40X' or ansible_net_model == 'C9500-16X' %}
 {% include '9500_compliance_template.j2' %}
+
 {% else %}
 {% include 'generic_compliance_template.j2' %}}
+
 {% endif %}
