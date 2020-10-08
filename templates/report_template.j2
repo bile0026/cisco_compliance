@@ -2,6 +2,10 @@
 {{ host }} report:
 Code version:
 {{ ansible_net_version }}
+Switch Model:
+{{ ansible_net_model }}
+Serial Number:
+{{ ansible_net_serialnum }}
 
 Updates to be applied to bring device into compliance:
 {% for command in config_results.updates %}
