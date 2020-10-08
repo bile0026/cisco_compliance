@@ -14,7 +14,9 @@ no service dhcp
 clock timezone EST -5 0
 clock summer-time EDT recurring
 
-# system mtu routing 1500
+{% if ansible_net_model == 'WS-C3560CX-12PC-S' %}
+system mtu routing 1500
+{% endif %}
 
 {% if ansible_net_model == 'WS-C3560CX-12PC-S' %}
 no ip domain-lookup
