@@ -57,7 +57,6 @@ ip access-list standard PROTECT_SNMP
 {% for acl in protect_snmp_var %}}
  {{ acl }}
 {% endfor %}}
- deny    any log
 
 ip access-list extended PROTECT_SSH
  permit tcp 10.0.0.0 0.255.255.255 any eq 22

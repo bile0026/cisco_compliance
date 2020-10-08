@@ -14,4 +14,4 @@ syslog_server:
 protect_snmp_var:
   - permit 192.168.0.1
   - permit 192.168.0.2
-  - deny  any log
+  - deny   any log
