@@ -14,8 +14,10 @@ protect_snmp_var:
   - deny   any log
 tacacs_key: 12345678
 tacacs_server_name:
-  - server 1
-  - server 2
+  - name: server 1
+    ip: 192.168.0.1
+  - name: server 2
+    ip: 192.168.1.1
 tacacs_server_ip:
   - 192.168.0.1
   - 192.168.1.1
