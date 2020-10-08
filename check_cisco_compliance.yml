@@ -86,7 +86,7 @@
         subtype: html
         attach:
           - /tmp/Cisco_Compliance_Report.txt
-          - /tmp/*.cfg
+          - /tmp/{{ inventory_host }}.cfg
         host: "{{ smtp_server }}"
         body:
       when:
