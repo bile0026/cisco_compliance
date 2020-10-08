@@ -101,3 +101,10 @@
       delegate_to: localhost
       run_once: True
       check_mode: False
+
+    - name: Cleanup configuration templates
+      file:
+        path: /tmp/{{ ansible_host }}.cfg
+        state: absent
+      delegate_to: localhost
+      check_mode: False
