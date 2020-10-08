@@ -53,14 +53,15 @@ no ip http secure-server
 ip ssh version 2
 ip scp server enable
 
-ip access-list extended PROTECT_SSH
- permit tcp 10.0.0.0 0.255.255.255 any eq 22
- deny ip any any log
-
 ip access-list standard PROTECT_SNMP
 {% for acl in protect_snmp_var %}}
  {{ acl }}
 {% endfor %}}
+ deny    any log
+
+ip access-list extended PROTECT_SSH
+ permit tcp 10.0.0.0 0.255.255.255 any eq 22
+ deny    ip any any log
 
 logging facility local6
 logging source-interface {{ management_interface }}
