@@ -58,13 +58,20 @@
     #     lines: "write memory"
     #   when: not ansible_check_mode and config_results.changed
 
-    - name: Generate report file
-      template:
-        src: templates/report_template.j2
+    - name: Generate Report file
+      blockinfile:
         dest: /tmp/Cisco_Compliance_Report.txt
+        block: "{{ lookup('template', 'tmp/report_template.j2') }}"
+        marker: "; {mark} ANSIBLE MANAGED BLOCK FOR {{ inventory_host }}"
       delegate_to: localhost
-      # run_once: True
-      check_mode: False
+
+    # - name: Generate report file
+    #   template:
+    #     src: templates/report_template.j2
+    #     dest: /tmp/Cisco_Compliance_Report.txt
+    #   delegate_to: localhost
+    #   # run_once: True
+    #   check_mode: False
 
     - name: Email non-compliance
       mail:
