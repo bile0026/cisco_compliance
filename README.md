@@ -8,6 +8,8 @@ cisco compliance reporting
 - No template for 9300 or 9500 switches
 - Does not currently save the configuration after application
 
+# How to use:
+
 Include these values to have emails sent. Can be included as extra vars or in a vars file.
 
 ```
