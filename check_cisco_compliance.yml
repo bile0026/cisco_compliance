@@ -65,6 +65,7 @@
         block: "{{ lookup('template', 'templates/report_template.j2') }}"
         marker: "; {mark} ANSIBLE MANAGED BLOCK FOR {{ ansible_net_hostname }}"
       delegate_to: localhost
+      check_mode: False
 
     # - name: Generate report file
     #   template:
