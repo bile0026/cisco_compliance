@@ -1,6 +1,6 @@
 # cisco_compliance
 
-cisco compliance reporting
+cisco compliance reporting and remediation. Use check mode for just reporting.
 
 # Current Issues
 
