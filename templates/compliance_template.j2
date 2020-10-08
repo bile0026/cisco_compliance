@@ -1,0 +1,3 @@
+{% if ansible_net_model == 'WS-C3560CX-12PC-S' or ansible_net_model == 'WS-C3560CG-8PC-S' %}
+{% include 3560cx_compliance_template.j2 %}
+{% endif %}

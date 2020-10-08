@@ -34,9 +34,9 @@
     - name: Gather device information
       cisco.ios.ios_facts:
 
-    - name: Generate 3560 Config
+    - name: Generate Configuration File
       template:
-        src: templates/3560cx_compliance_template.j2
+        src: templates/compliance_template.j2
         dest: /tmp/{{ ansible_host }}.cfg
       check_mode: False
 
