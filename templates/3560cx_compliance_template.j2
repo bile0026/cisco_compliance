@@ -16,8 +16,13 @@ clock summer-time EDT recurring
 
 # system mtu routing 1500
 
+{% if ansible_facts.ansible_net_model == 'WS-C3560CX-12PC-S' %}}
+no ip domain-lookup
+ip domain-name {{ domain_name }}
+{% else }}
 no ip domain lookup
 ip domain name {{ domain_name }}
+{% endif %}}
 
 # vtp off
 vtp mode off
