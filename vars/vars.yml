@@ -13,13 +13,12 @@ protect_snmp_var:
   - permit 192.168.0.2
   - deny   any log
 tacacs_key: 12345678
-tacacs_servers:
-  - server_1:
-      name: server1
-      ip_address: 192.168.0.1
-  - server_2:
-      name: server2
-      ip_address: 192.168.1.1
+tacacs_server_name:
+  - server 1
+  - server 2
+tacacs_server_ip:
+  - 192.168.0.1
+  - 192.168.1.1
 banner: |
   UNAUTHORIZED ACCESS TO THIS DEVICE IS PROHIBITED
   ================================================
