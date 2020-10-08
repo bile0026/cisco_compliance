@@ -60,7 +60,7 @@ ip access-list standard PROTECT_SNMP
 
 ip access-list extended PROTECT_SSH
  permit tcp 10.0.0.0 0.255.255.255 any eq 22
- deny    any log
+ deny    ip any any log
 
 logging facility local6
 logging source-interface {{ management_interface }}
