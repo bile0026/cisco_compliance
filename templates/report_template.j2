@@ -2,7 +2,7 @@
     Switch Model: {{ ansible_net_model }}
     Serial Number: {{ ansible_net_serialnum }}
 
-Updates to be applied to bring device into compliance:
-{% for command in config_results.updates %}
-    {{ command }}
-{% endfor %}
+    Updates to be applied to bring device into compliance:
+    {% for command in config_results.updates %}
+        {{ command }}
+    {% endfor %}
