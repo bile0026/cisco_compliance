@@ -44,7 +44,7 @@
       # add config templates for 9300 switches
 
       # add config templates for 9500 switches
-    - name: Apply Config
+    - name: Apply Configuration template
       cisco.ios.ios_config:
         backup: yes
         src: /tmp/{{ ansible_host }}.cfg
