@@ -16,7 +16,10 @@ clock summer-time EDT recurring
 
 # system mtu routing 1500
 
-{% if ansible_net_model == 'WS-C3560CX-12PC-S' or ansible_net_model == 'IOSv' %}
+{% if ansible_net_model == 'WS-C3560CX-12PC-S' %}
+no ip domain-lookup
+ip domain-name {{ domain_name }}
+{% if ansible_net_model == 'IOSv' %}
 no ip domain-lookup
 ip domain-name {{ domain_name }}
 {% else %}
