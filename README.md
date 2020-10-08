@@ -2,6 +2,11 @@
 
 cisco compliance reporting
 
+# Current Issues
+
+- Need to do testing with TACACS and password settings (hashed secrets)
+- No template for 9300 or 9500 switches
+
 Include these values to have emails sent. Can be included as extra vars or in a vars file.
 
 ```
