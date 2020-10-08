@@ -87,7 +87,9 @@
         attach: /tmp/Cisco_Compliance_Report.txt
         host: "{{ smtp_server }}"
         body:
-      when: config_results.changed
+      when:
+        - config_results.changed
+        - smtp_server is defined
       delegate_to: localhost
       run_once: True
       check_mode: False

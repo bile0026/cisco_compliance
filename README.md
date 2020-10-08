@@ -28,3 +28,12 @@ protect_snmp_var:
   - permit 192.168.0.2
   - deny   any log
 ```
+
+To get email reports, include these variables:
+
+```
+email_addresses:
+    - email@example.com
+from_email: email@example.com
+smtp_server: email.example.com
+```
