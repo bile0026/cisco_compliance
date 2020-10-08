@@ -63,7 +63,9 @@
         create: True
         dest: /tmp/Cisco_Compliance_Report.txt
         block: "{{ lookup('template', 'templates/report_template.j2') }}"
-        marker: "; {mark} ANSIBLE MANAGED BLOCK FOR {{ ansible_net_hostname }}"
+        marker: "{mark}"
+        marker_begin: "{{ ansible_net_hostname }} config report: "
+        marker_end: "-------------------------------------------------"
       delegate_to: localhost
       check_mode: False
 
