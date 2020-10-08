@@ -89,6 +89,7 @@ ip access-list extended PROTECT_SSH
  deny   ip any any log
 
 logging facility local6
+logging origin-id string {{ ansible_net_hostname }}
 logging source-interface {{ management_interface }}
 {% for server in syslog_server %}
 logging host {{ server }}
