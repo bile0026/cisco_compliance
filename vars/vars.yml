@@ -1,9 +1,9 @@
 management_interface: GigabitEthernet0/0
 ntp_address: 192.168.0.1
 snmp_ro: public
-enable_pass: cisco
+enable_pass: $1$e6cJ$bq2KLcD1Ig4u6DdD5XdHR0
 local_user: cisco
-local_pass: cisco
+local_pass: $1$KFqu$pVvzVdZR7lSKRN9.e.c/U.
 domain_name: test.com
 syslog_server:
   - 192.168.0.1
