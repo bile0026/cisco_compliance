@@ -58,8 +58,6 @@
         lookup_enabled: False
       register: domain_results
       notify: save ios
-      # Breaks ssh crypto keys?
-      ansible_check_mode: True
 
     - name: Apply banner configuration
       cisco.ios.ios_banner:
