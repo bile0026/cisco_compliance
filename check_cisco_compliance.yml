@@ -65,6 +65,7 @@
         text: "{{ banner }}"
         state: present
       register: banner_results
+      notify: save ios
 
     - name: Generate Report file
       blockinfile:
