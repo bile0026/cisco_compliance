@@ -32,16 +32,16 @@ clock summer-time EDT recurring
 system mtu routing 1500
 {% endif %}
 
-{% if ansible_net_model == 'WS-C3560CX-12PC-S' or ansible_net_model == 'WS-C3560CG-8PC-S' %}
-no ip domain-lookup
-ip domain-name {{ domain_name }}
-{% elif ansible_net_model == 'IOSv' %}
-no ip domain-lookup
-ip domain-name {{ domain_name }}
-{% else %}
-no ip domain lookup
-ip domain name {{ domain_name }}
-{% endif %}
+# {% if ansible_net_model == 'WS-C3560CX-12PC-S' or ansible_net_model == 'WS-C3560CG-8PC-S' %}
+# no ip domain-lookup
+# ip domain-name {{ domain_name }}
+# {% elif ansible_net_model == 'IOSv' %}
+# no ip domain-lookup
+# ip domain-name {{ domain_name }}
+# {% else %}
+# no ip domain lookup
+# ip domain name {{ domain_name }}
+# {% endif %}
 
 # vtp off
 vtp mode off

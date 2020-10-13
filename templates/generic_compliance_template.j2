@@ -14,8 +14,8 @@ username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
 clock timezone EST -5 0
 clock summer-time EDT recurring
 
-no ip domain lookup
-ip domain name {{ domain_name }}
+# no ip domain lookup
+# ip domain name {{ domain_name }}
 
 # vtp off
 vtp mode off
