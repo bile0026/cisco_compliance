@@ -10,7 +10,7 @@ no service dhcp
 logging buffered 512000
 
 enable secret 5 {{ enable_pass }}
-username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
+## username {{ local_user }} privilege 15 secret 5 {{ local_pass }}
 
 # aaa commands
 aaa new-model

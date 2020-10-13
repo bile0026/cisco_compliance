@@ -67,6 +67,19 @@
       register: banner_results
       notify: save ios
 
+    - name: Apply local admin configruation
+      cisco.ios.ios_user:
+        name: "{{ local_user }}"
+        hashed_password:
+          type: 5
+          value: "{{ local_pass }}"
+        update_password: on_create
+        privilege: 15
+        state: present
+        purge: True
+      register: user_results
+      notify: save ios
+
     - name: Generate Report file
       blockinfile:
         create: True
