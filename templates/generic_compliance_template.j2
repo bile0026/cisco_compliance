@@ -119,9 +119,9 @@ logging host 10.41.0.240
 snmp-server community {{ snmp_ro }} RO PROTECT_SNMP
 snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
 
-banner login ^
-{{ banner }}
-^
+# banner login ^
+# {{ banner }}
+# ^
 
 ntp server {{ ntp_address }}
 

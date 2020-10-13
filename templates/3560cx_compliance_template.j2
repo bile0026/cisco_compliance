@@ -166,9 +166,9 @@ tacacs server {{ server.name }}
  timeout 2
 {% endfor %}
 
-banner login ^
-{{ banner }}
-^
+# banner login ^
+# {{ banner }}
+# ^
 
 # ntp source {{ management_interface }}
 ntp server {{ ntp_address }}

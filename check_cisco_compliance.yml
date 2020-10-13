@@ -59,6 +59,13 @@
       register: domain_results
       notify: save ios
 
+    - name: Apply banner configuration
+      cisco.ios.ios_banner:
+        banner: login
+        text: "{{ banner }}"
+        state: present
+      register: banner_results
+
     - name: Generate Report file
       blockinfile:
         create: True
