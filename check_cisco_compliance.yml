@@ -91,6 +91,8 @@
       register: tacacs_results
       notify: save ios
 
+    - debug: var=tacacs_results
+
     - name: Generate Report file
       blockinfile:
         create: True
