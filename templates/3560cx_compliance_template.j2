@@ -158,14 +158,6 @@ snmp-server enable traps envmon fan shutdown supply temperature status
 snmp mib flash cache
 {% endif %}
 
-# TACACS config
-{% for server in tacacs_server_name %}
-tacacs server {{ server.name }}
- address ipv4 {{ server.ip }}
- key 7 {{ tacacs_key }}
- timeout 2
-{% endfor %}
-
 ## ntp source {{ management_interface }}
 ntp server {{ ntp_address }}
 
