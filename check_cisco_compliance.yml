@@ -30,5 +30,5 @@
 
   tasks:
     - name: Import the cisco_compliance role
-      import_roles:
+      import_role:
         name: cisco_compliance
