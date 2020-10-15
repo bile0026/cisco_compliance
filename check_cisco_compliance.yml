@@ -29,5 +29,6 @@
     - cisco.ios
 
   tasks:
-    - include_roles:
-        - cisco_compliance
+    - name: Import the cisco_compliance role
+      import_roles:
+        name: cisco_compliance
