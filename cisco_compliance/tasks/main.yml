@@ -1,0 +1,105 @@
+---
+# tasks file for cisco_compliance
+- name: Gather device information
+  cisco.ios.ios_facts:
+
+- name: Generate Configuration File
+  template:
+    src: templates/compliance_template.j2
+    dest: /tmp/{{ ansible_host }}.cfg
+  check_mode: False
+
+  # add config templates for 9300 switches
+  # add config templates for 9500 switches
+- name: Apply Base Configuration template
+  cisco.ios.ios_config:
+    backup: yes
+    src: /tmp/{{ ansible_host }}.cfg
+    diff_against: intended
+    intended_config: /tmp/{{ ansible_host }}.cfg
+  # save_when: modified
+  register: config_results
+  notify: save ios
+
+- name: Apply domain configuration
+  cisco.ios.ios_system:
+    domain_name: "{{ domain_name }}"
+    lookup_enabled: False
+  register: domain_results
+  notify: save ios
+
+- name: Apply banner configuration
+  cisco.ios.ios_banner:
+    banner: login
+    text: "{{ banner }}"
+    state: present
+  register: banner_results
+  notify: save ios
+
+- name: Apply local admin configruation
+  cisco.ios.ios_user:
+    name: "{{ local_user }}"
+    hashed_password:
+      type: 5
+      value: "{{ local_pass }}"
+    update_password: on_create
+    privilege: 15
+    state: present
+    purge: True
+  register: user_results
+  notify: save ios
+
+- name: Apply TACACS Server Configuration
+  cisco.ios.ios_config:
+    commands:
+      - tacacs server {{ item.name }}
+      - address ipv4 {{ item.ip }}
+      - key 7 {{ tacacs_key }}
+      - timeout 2
+  with_items: "{{ tacacs_server_name }}"
+  register: tacacs_results
+  notify: save ios
+
+- name: Generate Report file
+  blockinfile:
+    create: True
+    dest: /tmp/Cisco_Compliance_Report.txt
+    block: "{{ lookup('template', 'templates/report_template.j2') }}"
+    marker: "{mark}"
+    marker_begin: "{{ ansible_net_hostname }} config report: "
+    marker_end: "---------------------------------------------------------------"
+  delegate_to: localhost
+  check_mode: False
+
+- name: Email non-compliance
+  mail:
+    from: "{{ from_email }}"
+    to: "{{ email_addresses }}"
+    subject: Compliance Report for "{{ lookup('pipe','date +%Y-%m-%d') }}"
+    subtype: html
+    attach:
+      - /tmp/Cisco_Compliance_Report.txt
+      - /tmp/{{ inventory_hostname }}.cfg
+    host: "{{ smtp_server }}"
+    body:
+  when:
+    - config_results.changed
+    - smtp_server is defined
+  delegate_to: localhost
+  run_once: True
+  check_mode: False
+
+- name: Cleanup reports
+  file:
+    path: /tmp/Cisco_Compliance_Report.txt
+    state: absent
+  delegate_to: localhost
+  run_once: True
+  check_mode: False
+
+- name: Cleanup configuration templates
+  file:
+    path: /tmp/{{ ansible_host }}.cfg
+    state: absent
+  delegate_to: localhost
+  check_mode: False

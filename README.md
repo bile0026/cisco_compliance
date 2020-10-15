@@ -6,7 +6,6 @@ cisco compliance reporting and remediation. Use check mode for just reporting.
 
 - Need to do testing with TACACS and password settings (hashed secrets)
 - No template for 9300 or 9500 switches
-- Does not currently save the configuration after application
 
 # How to use:
 
@@ -18,7 +17,7 @@ from_email:
 smtp_server:
 ```
 
-vars used in jinja2 templates (see examples in vars/vars.yml):
+vars used in jinja2 templates (see examples in vars/main.yml):
 
 ```
 management_interface: GigabitEthernet0/0

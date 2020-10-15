@@ -1,3 +1,5 @@
+---
+# defaults file for cisco_compliance
 management_interface: GigabitEthernet0/0
 ntp_address: 192.168.0.1
 snmp_ro: public

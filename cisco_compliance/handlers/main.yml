@@ -1,0 +1,7 @@
+---
+# handlers file for cisco_compliance
+
+- name: save ios
+  cisco.ios.ios_command:
+    commands: "write memory"
+  when: not ansible_check_mode
