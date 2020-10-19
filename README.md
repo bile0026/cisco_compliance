@@ -11,13 +11,7 @@ cisco compliance reporting and remediation. Use check mode for just reporting.
 
 Include these values to have emails sent. Can be included as extra vars or in a vars file.
 
-```
-email_address:
-from_email:
-smtp_server:
-```
-
-vars used in jinja2 templates (see examples in vars/main.yml):
+vars used in jinja2 templates and tasks (see examples in vars/main.yml):
 
 ```
 management_interface: GigabitEthernet0/0
