@@ -49,16 +49,16 @@
   register: user_results
   notify: save ios
 
-- name: Apply TACACS Server Configuration
-  cisco.ios.ios_config:
-    commands:
-      - tacacs server {{ item.name }}
-      - address ipv4 {{ item.ip }}
-      - key 7 {{ tacacs_key }}
-      - timeout 2
-  with_items: "{{ tacacs_server_name }}"
-  register: tacacs_results
-  notify: save ios
+# - name: Apply TACACS Server Configuration
+#   cisco.ios.ios_config:
+#     commands:
+#       - tacacs server {{ item.name }}
+#       - address ipv4 {{ item.ip }}
+#       - key 7 {{ tacacs_key }}
+#       - timeout 2
+#   with_items: "{{ tacacs_server_name }}"
+#   register: tacacs_results
+#   notify: save ios
 
 - name: Generate Report file
   blockinfile:
