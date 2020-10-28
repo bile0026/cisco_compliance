@@ -12,9 +12,3 @@
     {% for command in user_results.commands %}
         {{ command }}
     {% endfor %}
-    {% for command in tacacs_results.results[0].updates %}
-        {{ command }}
-    {% endfor %}
-    {% for command in tacacs_results.results[1].updates %}
-        {{ command }}
-    {% endfor %}
