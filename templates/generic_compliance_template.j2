@@ -61,59 +61,55 @@ ip access-list extended PROTECT_SSH
 
 logging facility local6
 logging origin-id string {{ ansible_net_hostname }}
+#logging source-interface {{ management_interface }}
 {% for server in syslog_server %}
 logging host {{ server }}
 {% endfor %}
 {% if ansible_net_hostname.startswith('2PS') %}
-logging host 10.206.180.240
+logging host 10.206.20.135
 {% endif %}
 {% if ansible_net_hostname.startswith('BAB') %}
-logging host 10.101.0.240
+logging host 10.103.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('CAN') %}
-logging host 10.204.180.249
+logging host 10.205.100.35
 {% endif %}
 {% if ansible_net_hostname.startswith('CLE') %}
-logging host 10.206.180.240
+logging host 10.206.20.135
 {% endif %}
 {% if ansible_net_hostname.startswith('COT') %}
-logging host 10.41.0.240
+logging host 10.141.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('CTG') %}
-logging host 10.41.0.240
+logging host 10.141.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('EGL') %}
-logging host 10.41.0.240
+logging host 10.141.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('EMP') %}
-logging host 10.41.0.240
-{% endif %}
-{% if ansible_net_hostname.startswith('ERI') %}
-logging host 10.204.180.249
+logging host 10.141.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('EVE') %}
-logging host 10.50.0.240
+logging host 10.150.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('FRB') %}
-logging host 10.50.0.240
+logging host 10.150.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('ORD') %}
-logging host 10.41.0.240
+logging host 10.141.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('SIL') %}
-logging host 10.101.0.240
+logging host 10.103.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('TIL') %}
-logging host 10.41.0.240
+logging host 10.141.12.35
 {% endif %}
 {% if ansible_net_hostname.startswith('TOL') %}
-logging host 10.206.180.240
+logging host 10.206.20.135
 {% endif %}
 {% if ansible_net_hostname.startswith('WSY') %}
 logging host 10.41.0.240
 {% endif %}
-
-
 
 # snmp config
 snmp-server community {{ snmp_ro }} RO PROTECT_SNMP
