@@ -47,6 +47,7 @@
     state: present
     purge: True
   register: user_results
+  no_log: True
   notify: save ios
 
 # - name: Apply TACACS Server Configuration
