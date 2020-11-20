@@ -1,17 +1,5 @@
 system mtu routing 1500
 
-errdisable recovery cause udld
-errdisable recovery cause security-violation
-errdisable recovery cause channel-misconfig
-errdisable recovery cause link-flap
-errdisable recovery cause sfp-config-mismatch
-errdisable recovery cause gbic-invalid
-errdisable recovery cause psecure-violation
-errdisable recovery cause port-mode-failure
-errdisable recovery cause storm-control
-errdisable recovery cause inline-power
-errdisable recovery interval 600
-
 no ip forward-protocol nd
 
 snmp-server enable traps transceiver all
